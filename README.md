@@ -20,23 +20,17 @@ The objective of the assignment is to demonstrate practical use of animation sta
 
 The following animation sets are implemented in the Unity **State Engine**.
 
-### Primary Animations
-- Idle  
-- Walk  
-- Walk Backward  
-- Run Forward  
-- Ladder Climb  
-- Lift  
-- Axe Swing  
 
-### Layered Animations
-- Carrying Axe  
-- Spray Hose Left  
-- Spray Hose Right  
-- Spray Hose Up  
-- Spray Hose Down  
-- Spray Hose Straight  
-- Carry Hose  
+| Primary Animations | Layered Animations |
+|-------------------|--------------------|
+| Idle              | Carrying Axe       |
+| Walk              | Spray Hose Left    |
+| Walk Backward     | Spray Hose Right   |
+| Run Forward       | Spray Hose Up      |
+| Ladder Climb      | Spray Hose Down    |
+| Lift              | Spray Hose Straight|
+| Axe Swing         | Carry Hose         |
+ 
 
 These animations are blended and switched using Unity’s Animator Controller to complete different tasks in the fireman obstacle course.
 
