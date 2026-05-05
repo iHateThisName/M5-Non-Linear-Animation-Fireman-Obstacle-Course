@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,7 +21,7 @@ public class CameraMovement : MonoBehaviour {
     private void OnCameraMove(InputAction.CallbackContext context) {
         // Get the input value as a Vector2
         Vector2 input = context.ReadValue<Vector2>();
-        Vector3 move = new Vector3(input.x, input.y, 0);
+        Vector3 move = new Vector3(-input.x, input.y, 0);
         float step = this.speed * Time.deltaTime;
 
         this.mainCamera.transform.RotateAround(this.lookAtTarget.position, Vector3.up, move.x * step);

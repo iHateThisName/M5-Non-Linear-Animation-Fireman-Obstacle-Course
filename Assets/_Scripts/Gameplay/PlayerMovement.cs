@@ -1,0 +1,143 @@
+using System.Collections;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class PlayerMovement : MonoBehaviour {
+    [SerializeField] private CharacterController controller;
+    [SerializeField] private float speed = 7f;
+    [SerializeField] private InputActionReference moveAction;
+    private InputAction moveInputAction;
+    private bool isMoving;
+    private Transform mainCameraTransform;
+
+    [Header("Animation Velocity")]
+    [SerializeField] private float acceleration = 1f; // higher value means faster acceleration.
+    [SerializeField] private float deceleration = 3f; // higher value means faster deceleration. Should be higher than acceleration to feel responsive when stopping.
+    [field: SerializeField] public float PlayerVelocityZ { get; private set; } = 0f; // value between -1 and 3.
+
+    private Coroutine velocityCoroutine; // Reference to the currently running velocity coroutine
+    private Coroutine moveCoroutine;
+
+    private Vector2 moveInput;
+
+    private void OnEnable() {
+        // TODO : Move this to a better place, GameManager
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        //
+
+        this.moveInputAction = this.moveAction.action;
+        moveInputAction.Enable();
+        moveInputAction.performed += OnMove;
+        moveInputAction.canceled += OnMove;
+
+    }
+    private void OnDisable() {
+        moveInputAction.Disable();
+        moveInputAction.performed -= OnMove;
+        moveInputAction.canceled -= OnMove;
+    }
+
+    private void Start() {
+        this.mainCameraTransform = Camera.main.transform;
+    }
+
+    private void OnMove(InputAction.CallbackContext context) {
+
+        if (context.performed) {
+            this.moveInput = this.moveInputAction.ReadValue<Vector2>();
+            if (!this.isMoving) {
+                this.isMoving = true;
+                this.moveCoroutine = StartCoroutine(PerformeMove());
+                if (this.velocityCoroutine == null) this.velocityCoroutine = StartCoroutine(UpdateVelocity());
+
+            } else {
+                // Direction have changed, without letting go of the movement input.
+                StopCoroutine(this.moveCoroutine);
+                this.moveCoroutine = StartCoroutine(PerformeMove());
+                if (this.velocityCoroutine == null) this.velocityCoroutine = StartCoroutine(UpdateVelocity());
+            }
+        } else if (context.canceled) {
+            this.isMoving = false;
+        }
+    }
+
+    private IEnumerator PerformeMove() {
+        Vector3 moveDirection = this.mainCameraTransform.right * moveInput.x + this.mainCameraTransform.forward * moveInput.y;
+        moveDirection.y = 0; // Keep the movement on the horizontal plane
+        while (this.isMoving) {
+            Vector3 motion = this.speed * Time.fixedDeltaTime * moveDirection;
+            this.controller.Move(motion);
+            this.mainCameraTransform.position += motion; // TODO: Temporary solution, use cinemacine instead.
+
+            if (moveInput.y > 0) {
+                this.controller.gameObject.transform.rotation = Quaternion.Slerp(this.controller.gameObject.transform.rotation, Quaternion.LookRotation(moveDirection), Time.fixedDeltaTime * 5f);
+            } else if (moveInput.y < 0) {
+                this.controller.gameObject.transform.rotation = Quaternion.Slerp(this.controller.gameObject.transform.rotation, Quaternion.LookRotation(-moveDirection), Time.fixedDeltaTime * 5f);
+            }
+
+            yield return null;
+        }
+
+        this.moveCoroutine = null;
+        yield return null;
+    }
+
+    private IEnumerator UpdateVelocity() {
+        float target = 0f;
+        float newVelocity = 0f;
+
+        // We want this loop to run while the player is moving OR while velocity hasn't settled back to 0
+        while (this.isMoving || Mathf.Abs(this.PlayerVelocityZ) > 0.01f) {
+
+            if (!this.isMoving) {
+                target = 0f; // Not moving, target velocity is 0
+            } else if (moveInput.y > 0) {
+                // Todo: Detect left shift for running, and set target to 3f for running.
+                target = 1f; // Walking forward
+            } else if (moveInput.y < 0) {
+                target = -1f; // Walking backwards
+            }
+
+            float absVelocity = Mathf.Abs(this.PlayerVelocityZ);
+            float absTarget = Mathf.Abs(target);
+
+            if (absVelocity < absTarget) { //Accelerate
+                if (this.PlayerVelocityZ > target) {
+                    // accrelerateing to a more negative number, backwards momentum
+                    newVelocity = this.PlayerVelocityZ - Time.deltaTime * this.acceleration;
+                    if (newVelocity < target) newVelocity = target; // Prevent overshooting
+                } else {
+                    newVelocity = this.PlayerVelocityZ + Time.deltaTime * this.acceleration;
+                    if (newVelocity > target) newVelocity = target; // Prevent overshooting
+                }
+
+                //Debug.Log($"Accelerating. Velocity: {this.PlayerVelocityZ}, Target: {target}, New Velocity: {newVelocity}");
+
+            } else if (absVelocity > absTarget) { // Decelerate
+                if (this.PlayerVelocityZ < target) {
+                    // decelerating to a more positive number, stopping backwards momentum
+                    newVelocity = this.PlayerVelocityZ + Time.deltaTime * this.deceleration;
+                    if (newVelocity > target) newVelocity = target; // Prevent overshooting
+                } else {
+                    newVelocity = this.PlayerVelocityZ - Time.deltaTime * this.deceleration;
+                    if (newVelocity < target) newVelocity = target; // Prevent overshooting
+                }
+
+                //Debug.Log($"Decelerating. Velocity: {this.PlayerVelocityZ}, Target: {target}, New Velocity: {newVelocity}");
+            }
+
+            newVelocity = Mathf.Round(newVelocity * 1000f) / 1000f; // round to 3 decimals
+
+            // If we are close to 0 and not moving, snap to 0 to properly finish the loop
+            if (!this.isMoving && Mathf.Abs(newVelocity) < 0.0019f) {
+                this.PlayerVelocityZ = 0f;
+            } else {
+                this.PlayerVelocityZ = newVelocity;
+            }
+
+            yield return null;
+        }
+        this.velocityCoroutine = null;
+    }
+}
