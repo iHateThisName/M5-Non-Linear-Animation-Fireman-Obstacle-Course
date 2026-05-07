@@ -13,7 +13,15 @@ public class PlayerMovement : MonoBehaviour {
     [Header("Animation Velocity")]
     [SerializeField] private float acceleration = 1f; // higher value means faster acceleration.
     [SerializeField] private float deceleration = 3f; // higher value means faster deceleration. Should be higher than acceleration to feel responsive when stopping.
-    [field: SerializeField] public float PlayerVelocityZ { get; private set; } = 0f; // value between -1 and 3.
+
+    [SerializeField] private float playerVelocityZ; 
+    public float PlayerVelocityZ { 
+        get => playerVelocityZ; 
+        private set {
+            playerVelocityZ = value;
+            PlayerAnimationController.Instance.UpdateMovementInput(value);
+        } 
+    } // value between -1 and 3.
 
     private Coroutine velocityCoroutine; // Reference to the currently running velocity coroutine
     private Coroutine moveCoroutine;
@@ -123,8 +131,6 @@ public class PlayerMovement : MonoBehaviour {
                     newVelocity = this.PlayerVelocityZ - Time.deltaTime * this.deceleration;
                     if (newVelocity < target) newVelocity = target; // Prevent overshooting
                 }
-
-                //Debug.Log($"Decelerating. Velocity: {this.PlayerVelocityZ}, Target: {target}, New Velocity: {newVelocity}");
             }
 
             newVelocity = Mathf.Round(newVelocity * 1000f) / 1000f; // round to 3 decimals
