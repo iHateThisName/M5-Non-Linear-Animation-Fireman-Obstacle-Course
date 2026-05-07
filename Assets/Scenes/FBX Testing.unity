@@ -129,7 +129,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 211018710789113539, guid: 48961fb0e8dc575449a1d45bb31305f0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.15662
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 211018710789113539, guid: 48961fb0e8dc575449a1d45bb31305f0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -137,7 +137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 211018710789113539, guid: 48961fb0e8dc575449a1d45bb31305f0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.4866
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 211018710789113539, guid: 48961fb0e8dc575449a1d45bb31305f0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -167,13 +167,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2761418145705683951, guid: 48961fb0e8dc575449a1d45bb31305f0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2975889444297607036, guid: 48961fb0e8dc575449a1d45bb31305f0, type: 3}
       propertyPath: m_Name
       value: FireKittenPrefab (1)
       objectReference: {fileID: 0}
     - target: {fileID: 2975889444297607036, guid: 48961fb0e8dc575449a1d45bb31305f0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6795734070561480270, guid: 48961fb0e8dc575449a1d45bb31305f0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -672,7 +680,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3207356049692500253
 Transform:
   m_ObjectHideFlags: 0
