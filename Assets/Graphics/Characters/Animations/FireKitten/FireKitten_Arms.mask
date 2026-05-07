@@ -468,9 +468,9 @@ AvatarMask:
   - m_Path: Hose_Nozzle_B_Handle_R_Anim
     m_Weight: 0
   - m_Path: Hose_Nozzle_B_Handle_R_Jnt
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Hose_Nozzle_B_Handle_R_Jnt/Hose_Nozzle_B_Handle_L_Jnt
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Hose_Nozzle_B_Nozzle_Mesh
     m_Weight: 0
   - m_Path: HoseCoil_group1
