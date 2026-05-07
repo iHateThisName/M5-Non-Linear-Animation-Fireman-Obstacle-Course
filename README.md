@@ -1,3 +1,4 @@
+
 # M5 Non-Linear Animation – Fireman Obstacle Course
 
 ## Course Information
@@ -45,3 +46,5 @@ These animations are blended and switched using Unity’s Animator Controller to
 
 ## 🎓 Assignment Objective
 The goal of this assignment is to demonstrate understanding of **non-linear animation workflows**, implementation of **layered animations**, and creation of an interactive animation system using Unity’s Animator.
+
+<img width="950" height="407" alt="6976aea3cfd02fa62135b57f_655386a69a39b88a98cbf209_6170d2b0cd4f9cd58b5118d4_walk_cycle_inspiration_animators_survival_kit" src="https://github.com/user-attachments/assets/ae3f6653-8f8c-4d18-b971-318c6ca70363" />
