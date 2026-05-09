@@ -370,7 +370,6 @@ GameObject:
   - component: {fileID: 189700296}
   - component: {fileID: 189700300}
   - component: {fileID: 189700299}
-  - component: {fileID: 189700298}
   - component: {fileID: 189700297}
   m_Layer: 0
   m_Name: Aim Camera
@@ -411,24 +410,6 @@ MonoBehaviour:
   AmplitudeGain: 1
   FrequencyGain: 1
   m_NoiseOffsets: {x: -765.3436, y: 412.4553, z: 513.0689}
---- !u!114 &189700298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 189700295}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2588cc5dedbb75e49a44aada63f7b939, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AimCollisionFilter:
-    serializedVersion: 2
-    m_Bits: 1
-  IgnoreTag: Player
-  AimDistance: 200
-  NoiseCancellation: 1
 --- !u!114 &189700299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3547,6 +3528,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1900065969}
+  - component: {fileID: 1900065970}
   m_Layer: 0
   m_Name: Camera Rig
   m_TagString: Untagged
@@ -3571,6 +3553,22 @@ Transform:
   - {fileID: 189700296}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1900065970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900065966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d5975593a1b6ef45a893838b23face5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraManager
+  cinemachineCameras:
+  - {fileID: 965751606}
+  - {fileID: 189700300}
+  aimRefrence: {fileID: -7492232905236219654, guid: 35845fe01580c41289b024647b1d1c53, type: 3}
 --- !u!1 &2013410473
 GameObject:
   m_ObjectHideFlags: 1
