@@ -1,9 +1,34 @@
 fileFormatVersion: 2
-guid: 681541dcdaf92ce4d88f6d4e4725f8bd
+guid: 7a5ee102582c10e40afc34120ae37d65
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FireKitten_M_Body
+    second: {fileID: 2100000, guid: e319c86b53be6d74495cb89e76bea067, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FireKitten_M_Eye_Lens
+    second: {fileID: 2100000, guid: 82d3e2387e0dd6049b103cd6fe9937e0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FireKitten_M_Head
+    second: {fileID: 2100000, guid: 882202628001f72409c6a9d683aa383e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FireKitten_M_Shirt_Pants
+    second: {fileID: 2100000, guid: 8e4781a917c01e441bdeefcf2c26ebc8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: openPBR_shader1
+    second: {fileID: 2100000, guid: d418cb6bb1cc5254ea3c15ecdffe4530, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -21,7 +46,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
-    importConstraints: 0
+    importConstraints: 1
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5

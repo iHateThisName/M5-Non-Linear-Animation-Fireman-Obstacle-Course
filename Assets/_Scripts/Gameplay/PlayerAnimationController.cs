@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerAnimationController : Singleton<PlayerAnimationController> {
     [SerializeField] private Animator animator;
+    [SerializeField] private AnimationLiftTrigger animationLiftTrigger;
 
     public bool IsArmsOverwritte { get; private set; } = false;
 
@@ -11,6 +12,11 @@ public class PlayerAnimationController : Singleton<PlayerAnimationController> {
         if (this.animator == null) {
             this.animator = transform.root.GetComponentInChildren<Animator>();
         }
+
+        if (this.animationLiftTrigger == null) {
+            this.animationLiftTrigger = this.animator.GetBehaviour<AnimationLiftTrigger>();
+        }
+        
     }
 
     public void UpdateMovementInput(float newVelocity) {
@@ -18,6 +24,38 @@ public class PlayerAnimationController : Singleton<PlayerAnimationController> {
             Debug.Log("Updating movement velocity to " + newVelocity);
             this.animator.SetFloat(AnimationState.MovementVelocity, newVelocity);
         }
+    }
+
+    [ContextMenu("Pick Up Axe")]
+    public void PickUpAxe() {
+        this.animationLiftTrigger.isAxe = true;
+        this.animationLiftTrigger.isPickUp = true;
+        this.animator.SetTrigger(AnimationState.LiftTrigger);
+    }
+
+    [ContextMenu("Drop Axe")]
+    public void DropAxe() {
+        this.animationLiftTrigger.isAxe = true;
+        this.animationLiftTrigger.isPickUp = false;
+        this.animator.SetTrigger(AnimationState.LiftTrigger);
+
+        this.IsArmsOverwritte = false;
+        this.animator.SetBool(AnimationState.ArmsOverwritte, false);
+        FireKittenModelController.Instance.HideAxe();
+    }
+
+    public void TriggerAxeCarry() {
+        this.IsArmsOverwritte = true;
+        this.animator.SetBool(AnimationState.ArmsOverwritte, true);
+        this.animator.SetTrigger(AnimationState.CarryAxeTrigger);
+        FireKittenModelController.Instance.ShowAxe();
+    }
+
+    public void TriggerWaterHoseCarry() {
+        this.IsArmsOverwritte = true;
+        this.animator.SetBool(AnimationState.ArmsOverwritte, true);
+        this.animator.SetTrigger(AnimationState.CarryWaterHoseTrigger);
+        FireKittenModelController.Instance.ShowWaterHoseNosal();
     }
 
     public class AnimationState {

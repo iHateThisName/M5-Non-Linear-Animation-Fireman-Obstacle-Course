@@ -2696,10 +2696,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: FireKittenPrefab
       objectReference: {fileID: 0}
-    - target: {fileID: 7060919942489337253, guid: 48961fb0e8dc575449a1d45bb31305f0, type: 3}
-      propertyPath: speed
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -12,11 +12,11 @@ AvatarMask:
   - m_Path: 
     m_Weight: 1
   - m_Path: FireAx_AAxOffset
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: FireAx_AAxOffset/FireAx_AX_Base_Skin_Jnt
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: FireAx_AAxOffset/FireAx_AX_Base_Skin_Jnt/FireAx_AX_End_Jnt
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: FireAx_Ax_BaseAnim
     m_Weight: 0
   - m_Path: FireAx_FireAX_Mesh
