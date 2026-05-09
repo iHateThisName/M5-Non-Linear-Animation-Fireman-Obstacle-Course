@@ -14,13 +14,13 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private float acceleration = 1f; // higher value means faster acceleration.
     [SerializeField] private float deceleration = 3f; // higher value means faster deceleration. Should be higher than acceleration to feel responsive when stopping.
 
-    [SerializeField] private float playerVelocityZ; 
-    public float PlayerVelocityZ { 
-        get => playerVelocityZ; 
+    [SerializeField] private float playerVelocityZ;
+    public float PlayerVelocityZ {
+        get => playerVelocityZ;
         private set {
             playerVelocityZ = value;
             PlayerAnimationController.Instance.UpdateMovementInput(value);
-        } 
+        }
     } // value between -1 and 3.
 
     private Coroutine velocityCoroutine; // Reference to the currently running velocity coroutine
@@ -74,7 +74,11 @@ public class PlayerMovement : MonoBehaviour {
         Vector3 moveDirection = this.mainCameraTransform.right * moveInput.x + this.mainCameraTransform.forward * moveInput.y;
         moveDirection.y = 0; // Keep the movement on the horizontal plane
         while (this.isMoving) {
-            Vector3 motion = this.speed * Time.fixedDeltaTime * moveDirection;
+            // This will give a multiplier between 1 and 2 for forward movement, and between 0.5 and 1 for backward movement.
+            float dynamicSpeedMultiplier = 1f + (Mathf.Abs(this.PlayerVelocityZ / 2f));
+            Vector3 motion = (this.speed * dynamicSpeedMultiplier) * Time.fixedDeltaTime * moveDirection;
+
+
             this.controller.Move(motion);
             this.mainCameraTransform.position += motion; // TODO: Temporary solution, use cinemacine instead.
 
