@@ -21,7 +21,6 @@ public class PlayerAnimationController : Singleton<PlayerAnimationController> {
 
     public void UpdateMovementInput(float newVelocity) {
         if (!this.IsArmsOverwritte) {
-            Debug.Log("Updating movement velocity to " + newVelocity);
             this.animator.SetFloat(AnimationState.MovementVelocity, newVelocity);
         }
     }
