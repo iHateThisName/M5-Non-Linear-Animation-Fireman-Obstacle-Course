@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerAnimationController : Singleton<PlayerAnimationController> {
     [SerializeField] private Animator animator;
 
-    public bool isArmsOverwritte { get; private set; } = false;
+    public bool IsArmsOverwritte { get; private set; } = false;
 
     protected override void Awake() {
         base.Awake();
@@ -14,7 +14,8 @@ public class PlayerAnimationController : Singleton<PlayerAnimationController> {
     }
 
     public void UpdateMovementInput(float newVelocity) {
-        if (!this.isArmsOverwritte) {
+        if (!this.IsArmsOverwritte) {
+            Debug.Log("Updating movement velocity to " + newVelocity);
             this.animator.SetFloat(AnimationState.MovementVelocity, newVelocity);
         }
     }

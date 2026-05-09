@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5282492937578793631}
+  - component: {fileID: 6712786281227808160}
   m_Layer: 0
   m_Name: PlayerAnimation
   m_TagString: Untagged
@@ -31,6 +32,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 211018710789113539}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6712786281227808160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2641449105063594172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b9c94ef2c0cc40449de0273f08febb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationController
+  animator: {fileID: 6184867805616980327}
 --- !u!1 &2975889444297607036
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,7 +187,7 @@ MonoBehaviour:
   moveAction: {fileID: -1680190386980627800, guid: 35845fe01580c41289b024647b1d1c53, type: 3}
   acceleration: 1
   deceleration: 3
-  <PlayerVelocityZ>k__BackingField: 0
+  playerVelocityZ: 0
 --- !u!1 &9022572507124316701
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,7 +227,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9022572507124316701}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dae9082263038ca42ba5f0da24ccdb10, type: 3}
   m_Name: 
@@ -1201,5 +1215,10 @@ PrefabInstance:
 --- !u!4 &231157290004192029 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7a5ee102582c10e40afc34120ae37d65, type: 3}
+  m_PrefabInstance: {fileID: 342138511657041142}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &6184867805616980327 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 7a5ee102582c10e40afc34120ae37d65, type: 3}
   m_PrefabInstance: {fileID: 342138511657041142}
   m_PrefabAsset: {fileID: 0}

@@ -102,7 +102,8 @@ public class PlayerMovement : MonoBehaviour {
                 target = 0f; // Not moving, target velocity is 0
             } else if (moveInput.y > 0) {
                 // Todo: Detect left shift for running, and set target to 3f for running.
-                target = 1f; // Walking forward
+                //target = 1f; // Walking forward
+                target = 3f; // Running
             } else if (moveInput.y < 0) {
                 target = -1f; // Walking backwards
             }
