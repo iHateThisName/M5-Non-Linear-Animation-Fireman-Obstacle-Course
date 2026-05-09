@@ -44,6 +44,24 @@ public class PlayerAnimationController : Singleton<PlayerAnimationController> {
         FireKittenModelController.Instance.HideAxe();
     }
 
+    [ContextMenu("Pick Up Water Hose")]
+    public void PickUpWaterHose() {
+        this.animationLiftTrigger.isAxe = false;
+        this.animationLiftTrigger.isPickUp = true;
+
+        this.animator.SetTrigger(AnimationState.LiftTrigger);
+    }
+
+    [ContextMenu("Drop Water Hose")]
+    public void DropWaterHose() {
+        this.animationLiftTrigger.isAxe = false;
+        this.animationLiftTrigger.isPickUp = false;
+        this.animator.SetTrigger(AnimationState.LiftTrigger);
+        this.IsArmsOverwritte = false;
+        this.animator.SetBool(AnimationState.ArmsOverwritte, false);
+        FireKittenModelController.Instance.HideWaterHoseNosal();
+    }
+
     public void TriggerAxeCarry() {
         this.IsArmsOverwritte = true;
         this.animator.SetBool(AnimationState.ArmsOverwritte, true);

@@ -28,4 +28,5 @@ public class FireKittenModelController : Singleton<FireKittenModelController> {
     public void HideAxe() => this.axeRenderer.enabled = false;
     public void ShowLadder() => this.ladderRenderer.enabled = true;
     public void ShowWaterHoseNosal() => this.hoseNosalBRenderer.enabled = true;
+    public void HideWaterHoseNosal() => this.hoseNosalBRenderer.enabled = false;
 }

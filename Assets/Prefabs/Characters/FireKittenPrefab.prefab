@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationController
   animator: {fileID: 5913453585762967855}
-  animationLiftTrigger: {fileID: 0}
+  animationLiftTrigger: {fileID: -988919948355503733, guid: d8f8a28a6b1b672489162fadc9858597, type: 2}
 --- !u!1 &2975889444297607036
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 815244266351900710}
   m_Layer: 0
   m_Name: FireKittenPrefab
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -334,6 +334,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FireKittenAll
       objectReference: {fileID: 0}
+    - target: {fileID: 1843639521714921400, guid: 7a5ee102582c10e40afc34120ae37d65, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 08a9005e97000cd4385940320ac02dc1, type: 2}
     m_RemovedComponents:
     - {fileID: 5866666021909216657, guid: 7a5ee102582c10e40afc34120ae37d65, type: 3}
     m_RemovedGameObjects: []
