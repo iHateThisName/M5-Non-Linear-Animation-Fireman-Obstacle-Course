@@ -19,6 +19,23 @@ public class PlayerAnimationController : Singleton<PlayerAnimationController> {
         
     }
 
+    private void OnEnable() {
+        CameraManager.OnAimStateChanged += HandleAimStateChanged;
+    }
+
+    private void OnDisable() {
+        CameraManager.OnAimStateChanged -= HandleAimStateChanged;
+    }
+
+    private void HandleAimStateChanged(bool isAiming) {
+        if (isAiming && this.IsArmsOverwritte) {
+            this.animator.SetTrigger(AnimationState.AimWaterHoseTrigger);
+
+        } else if (!isAiming && this.IsArmsOverwritte) {
+            this.animator.SetTrigger(AnimationState.CarryWaterHoseTrigger);
+        }
+    }
+
     public void UpdateMovementInput(float newVelocity) {
         if (!this.IsArmsOverwritte) {
             this.animator.SetFloat(AnimationState.MovementVelocity, newVelocity);

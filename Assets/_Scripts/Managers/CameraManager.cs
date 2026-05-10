@@ -1,4 +1,5 @@
 using Assets.Scripts.Singleton;
+using System;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,6 +11,8 @@ public class CameraManager : Singleton<CameraManager> {
     private InputAction aimAction;
 
     private bool isAiming = false;
+
+    public static Action<bool> OnAimStateChanged; // Action to notify other scripts about the aiming state change
 
     private void OnEnable() {
         this.aimAction = this.aimRefrence.action;
@@ -28,10 +31,12 @@ public class CameraManager : Singleton<CameraManager> {
         if (context.performed) {
             this.isAiming = true;
             ToggleCameraPriorty();
+            OnAimStateChanged?.Invoke(true);
 
         } else if (context.canceled) {
             this.isAiming = false;
             ToggleCameraPriorty();
+            OnAimStateChanged?.Invoke(false);
         }
     }
 
