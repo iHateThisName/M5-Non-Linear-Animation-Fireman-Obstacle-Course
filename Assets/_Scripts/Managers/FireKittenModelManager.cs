@@ -15,7 +15,7 @@ public class FireKittenModelController : Singleton<FireKittenModelController> {
         HideTools();
     }
 
-    private void HideTools() {
+    public void HideTools() {
         this.ladderRenderer.enabled = false;
         this.hoseStraitRenderer.enabled = false;
         this.hoseNosalRenderer.enabled = false;

@@ -1,9 +1,10 @@
+using Assets.Scripts.Singleton;
 using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : Singleton<PlayerMovement> {
     [SerializeField] private CharacterController controller;
     [SerializeField] private float speed = 7f;
     [SerializeField] private InputActionReference moveAction;
@@ -61,6 +62,12 @@ public class PlayerMovement : MonoBehaviour {
         this.mainCameraTransform = Camera.main.transform;
     }
 
+    private void Update() {
+        if (!this.controller.isGrounded && !PlayerAnimationController.Instance.IsClimbingLadder) {
+            this.controller.Move(Physics.gravity * Time.deltaTime);
+        }
+    }
+
     private void OnMove(InputAction.CallbackContext context) {
 
         if (context.performed) {
@@ -98,9 +105,12 @@ public class PlayerMovement : MonoBehaviour {
             float dynamicSpeedMultiplier = 1f + (Mathf.Abs(this.PlayerVelocityZ / 2f));
             Vector3 motion = (this.speed * dynamicSpeedMultiplier) * Time.deltaTime * moveDirection;
 
-
-            this.controller.Move(motion);
-            this.mainCameraTransform.position += motion; // TODO: Temporary solution, use cinemacine instead.
+            if (PlayerAnimationController.Instance.IsClimbingLadder) {
+                Debug.Log($"Climbing ladder, moving with motion: {motion}");
+                this.controller.Move(new Vector3(0, motion.z, 0));
+            } else {
+                this.controller.Move(motion);
+            }
 
             if (moveInput.y > 0) {
                 this.controller.gameObject.transform.rotation = Quaternion.Slerp(this.controller.gameObject.transform.rotation, Quaternion.LookRotation(moveDirection), Time.fixedDeltaTime * 5f);
@@ -171,5 +181,12 @@ public class PlayerMovement : MonoBehaviour {
             yield return null;
         }
         this.velocityCoroutine = null;
+    }
+
+    public void Teleport(Vector3 position, Quaternion rotation) {
+        this.controller.enabled = false;
+        this.controller.transform.position = position;
+        this.controller.transform.rotation = rotation;
+        this.controller.enabled = true;
     }
 }

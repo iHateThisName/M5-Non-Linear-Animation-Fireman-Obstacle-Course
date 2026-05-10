@@ -110,6 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationController
   animator: {fileID: 5913453585762967855}
   animationLiftTrigger: {fileID: -988919948355503733, guid: d8f8a28a6b1b672489162fadc9858597, type: 2}
+  currentInteraction: {fileID: 0}
 --- !u!1 &2975889444297607036
 GameObject:
   m_ObjectHideFlags: 0

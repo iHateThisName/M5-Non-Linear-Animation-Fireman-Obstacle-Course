@@ -8,8 +8,10 @@ public class PlayerAnimationController : Singleton<PlayerAnimationController> {
 
     public bool IsArmsOverwritte { get; private set; } = false;
     public bool IsAimingWaterHose { get; private set; } = false;
-
+    public bool IsClimbingLadder { get; set; } = false;
     public Vector2 WaterHoseAim { get; private set; } = Vector2.zero;
+
+    public InteractionController currentInteraction = null;
 
     protected override void Awake() {
         base.Awake();
@@ -65,15 +67,13 @@ public class PlayerAnimationController : Singleton<PlayerAnimationController> {
 
     [ContextMenu("Pick Up Axe")]
     public void PickUpAxe() {
-        //this.animationLiftTrigger.isAxe = true;
-        //this.animationLiftTrigger.isPickUp = true;
+        FireKittenModelController.Instance.HideTools();
+        if (this.currentInteraction != null) this.currentInteraction.Drop();
         this.animator.SetTrigger(AnimationState.LiftAxeTrigger);
     }
 
     [ContextMenu("Drop Axe")]
     public void DropAxe() {
-        //this.animationLiftTrigger.isAxe = true;
-        //this.animationLiftTrigger.isPickUp = false;
         this.animator.SetTrigger(AnimationState.LiftAxeTrigger);
 
         this.IsArmsOverwritte = false;
@@ -83,6 +83,8 @@ public class PlayerAnimationController : Singleton<PlayerAnimationController> {
 
     [ContextMenu("Pick Up Water Hose")]
     public void PickUpWaterHose() {
+        FireKittenModelController.Instance.HideTools();
+        if (this.currentInteraction != null) this.currentInteraction.Drop();
         this.animator.SetTrigger(AnimationState.LiftWaterHoseTrigger);
     }
 
@@ -108,12 +110,24 @@ public class PlayerAnimationController : Singleton<PlayerAnimationController> {
         FireKittenModelController.Instance.ShowWaterHoseNosal();
     }
 
+    public void AttacheToLadder() {
+        if (currentInteraction != null) this.currentInteraction.Drop();
+        this.IsClimbingLadder = true;
+        this.animator.SetTrigger(AnimationState.LaderClimbTrigger);
+    }
+
+    public void DetachFromLadder() {
+        this.IsClimbingLadder = false;
+        this.animator.SetTrigger(AnimationState.deafultTrigger);
+    }
+
     public class AnimationState {
         // Main States
         public static readonly int LiftAxeTrigger = Animator.StringToHash("Lift Trigger Axe");
         public static readonly int LiftWaterHoseTrigger = Animator.StringToHash("Lift Trigger Water Hose");
         public static readonly int LaderClimbTrigger = Animator.StringToHash("Lader Climb Trigger");
         public static readonly int AxeSwingTrigger = Animator.StringToHash("Axe Swing Trigger");
+        public static readonly int deafultTrigger = Animator.StringToHash("Default Trigger");
 
         // Movement Blend Tree
         public static readonly int MovementVelocity = Animator.StringToHash("Movement Blend"); // 3 running, 1 walking, 0 Idle, -1 Backwards.

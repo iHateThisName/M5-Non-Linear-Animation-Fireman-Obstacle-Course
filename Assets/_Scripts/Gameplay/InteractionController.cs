@@ -14,6 +14,9 @@ public class InteractionController : MonoBehaviour {
     private bool isPickedUp = false;
     [field: SerializeField] public bool IsPlayerInRange { get; private set; } = false;
 
+    [SerializeField] private Transform StartTeleport;
+    [SerializeField] private Transform EndTeleport;
+
     private void Start() {
         if (interactionType == EnumInteractionType.None) {
             Debug.LogWarning("Interaction type is set to None, this component will not do anything.");
@@ -35,6 +38,13 @@ public class InteractionController : MonoBehaviour {
             this.IsPlayerInRange = false;
             this.interactionInputAction.performed -= OnInteraction;
             this.interactionInputAction.Disable();
+
+            if (this.interactionType == EnumInteractionType.Ladder && isPickedUp) {
+                PlayerAnimationController.Instance.DetachFromLadder();
+                PlayerMovement.Instance.Teleport(EndTeleport.position, EndTeleport.rotation);
+                isPickedUp = false;
+
+            }
         }
     }
 
@@ -45,6 +55,7 @@ public class InteractionController : MonoBehaviour {
         switch (this.interactionType) {
             case EnumInteractionType.Axe:
                 if (!isPickedUp) {
+
                     PlayerAnimationController.Instance.PickUpAxe();
                     isPickedUp = true;
                 }
@@ -56,16 +67,28 @@ public class InteractionController : MonoBehaviour {
                 }
                 break;
             case EnumInteractionType.Ladder:
-                // TODO : Add ladder interaction.
-                Debug.Log("Ladder interaction is not implemented yet.");
+                if (!isPickedUp) {
+                    PlayerMovement.Instance.Teleport(StartTeleport.position, StartTeleport.rotation);
+                    PlayerAnimationController.Instance.AttacheToLadder();
+                    isPickedUp = true;
+                }
                 break;
             default:
                 Debug.LogWarning("Interaction type is set to None, this component will not do anything.");
                 break;
         }
 
-        this.model.SetActive(false);
+        if (this.interactionType != EnumInteractionType.Ladder) {
+            this.model.SetActive(false);
+            PlayerAnimationController.Instance.currentInteraction = this;
+        }
 
+    }
+
+    public void Drop() {
+        if (!isPickedUp) return;
+        this.model.SetActive(true);
+        isPickedUp = false;
     }
 
     public enum EnumInteractionType { None, Axe, WaterHose, Ladder, }
