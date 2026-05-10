@@ -58,7 +58,7 @@ Transform:
   m_GameObject: {fileID: 2432546461385157449}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0.58, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -294,7 +294,7 @@ MonoBehaviour:
   speed: 2
   moveAction: {fileID: -1680190386980627800, guid: 35845fe01580c41289b024647b1d1c53, type: 3}
   acceleration: 1
-  deceleration: 3
+  deceleration: 5
   playerVelocityZ: 0
 --- !u!1 &7903486469021912315
 GameObject:

@@ -3350,6 +3350,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FireKittenPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 7060919942489337253, guid: 48961fb0e8dc575449a1d45bb31305f0, type: 3}
+      propertyPath: deceleration
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8800202671236517743, guid: 48961fb0e8dc575449a1d45bb31305f0, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.58

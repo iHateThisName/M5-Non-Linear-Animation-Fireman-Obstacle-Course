@@ -104,12 +104,13 @@ public class PlayerMovement : MonoBehaviour {
 
             if (!this.isMoving) {
                 target = 0f; // Not moving, target velocity is 0
-            } else if (moveInput.y > 0) {
+            } else if (moveInput.y < 0) {
+                target = -1f; // Walking backwards
+
+            } else if (moveInput.y > 0 || moveInput.x != 0) {
                 // Todo: Detect left shift for running, and set target to 3f for running.
                 //target = 1f; // Walking forward
                 target = 3f; // Running
-            } else if (moveInput.y < 0) {
-                target = -1f; // Walking backwards
             }
 
             float absVelocity = Mathf.Abs(this.PlayerVelocityZ);
