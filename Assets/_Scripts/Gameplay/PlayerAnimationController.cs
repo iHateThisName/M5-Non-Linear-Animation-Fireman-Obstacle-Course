@@ -28,10 +28,13 @@ public class PlayerAnimationController : Singleton<PlayerAnimationController> {
     }
 
     private void HandleAimStateChanged(bool isAiming) {
-        if (isAiming && this.IsArmsOverwritte) {
+        if (!this.IsArmsOverwritte) return;
+        AnimatorStateInfo animatorStateInfo = this.animator.GetCurrentAnimatorStateInfo(0);
+
+        if (isAiming && animatorStateInfo.IsName("CarryWaterHose")) {
             this.animator.SetTrigger(AnimationState.AimWaterHoseTrigger);
 
-        } else if (!isAiming && this.IsArmsOverwritte) {
+        } else if (!isAiming && animatorStateInfo.IsName("AimWaterHose")) {
             this.animator.SetTrigger(AnimationState.CarryWaterHoseTrigger);
         }
     }
