@@ -51,7 +51,7 @@ public class InteractionController : MonoBehaviour {
                 break;
             case EnumInteractionType.WaterHose:
                 if (!isPickedUp) {
-                     PlayerAnimationController.Instance.PickUpWaterHose();
+                    PlayerAnimationController.Instance.PickUpWaterHose();
                     isPickedUp = true;
                 }
                 break;

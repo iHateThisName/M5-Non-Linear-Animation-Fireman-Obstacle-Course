@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -6,7 +7,9 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private CharacterController controller;
     [SerializeField] private float speed = 7f;
     [SerializeField] private InputActionReference moveAction;
+    [SerializeField] private InputActionReference lookAction;
     private InputAction moveInputAction;
+    private InputAction lookInputAction;
     private bool isMoving;
     private Transform mainCameraTransform;
 
@@ -39,12 +42,20 @@ public class PlayerMovement : MonoBehaviour {
         moveInputAction.performed += OnMove;
         moveInputAction.canceled += OnMove;
 
+        this.lookInputAction = this.lookAction.action;
+        this.lookInputAction.Enable();
+        this.lookInputAction.performed += OnLook;
+
     }
     private void OnDisable() {
         moveInputAction.Disable();
         moveInputAction.performed -= OnMove;
         moveInputAction.canceled -= OnMove;
+
+        this.lookInputAction.Disable();
+        this.lookInputAction.performed -= OnLook;
     }
+
 
     private void Start() {
         this.mainCameraTransform = Camera.main.transform;
@@ -69,6 +80,15 @@ public class PlayerMovement : MonoBehaviour {
             this.isMoving = false;
         }
     }
+    private void OnLook(InputAction.CallbackContext context) {
+        if (!context.performed) return;
+        if (PlayerAnimationController.Instance.IsAimingWaterHose) {
+            Vector2 lookInput = this.lookInputAction.ReadValue<Vector2>();
+            Vector2 currentAim = PlayerAnimationController.Instance.WaterHoseAim;
+            lookInput *= 0.001f;
+            PlayerAnimationController.Instance.UpdateWaterHoseAimHorizontal(currentAim.x + lookInput.x, currentAim.y + lookInput.y);
+        }
+    }
 
     private IEnumerator PerformeMove() {
         Vector3 moveDirection = this.mainCameraTransform.right * moveInput.x + this.mainCameraTransform.forward * moveInput.y;
@@ -76,7 +96,7 @@ public class PlayerMovement : MonoBehaviour {
         while (this.isMoving) {
             // This will give a multiplier between 1 and 2 for forward movement, and between 0.5 and 1 for backward movement.
             float dynamicSpeedMultiplier = 1f + (Mathf.Abs(this.PlayerVelocityZ / 2f));
-            Vector3 motion = (this.speed * dynamicSpeedMultiplier) * Time.fixedDeltaTime * moveDirection;
+            Vector3 motion = (this.speed * dynamicSpeedMultiplier) * Time.deltaTime * moveDirection;
 
 
             this.controller.Move(motion);

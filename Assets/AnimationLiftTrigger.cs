@@ -1,8 +1,8 @@
 using UnityEngine;
 
 public class AnimationLiftTrigger : StateMachineBehaviour {
-    public bool isAxe { get; set; } = true; // if false should be water hose.
-    public bool isPickUp { get; set; } = true; // if false should be drop.
+    [SerializeField] private bool isAxe = true; // if false should be water hose.
+    [SerializeField] private bool isPickUp = true; // if false should be drop.
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
