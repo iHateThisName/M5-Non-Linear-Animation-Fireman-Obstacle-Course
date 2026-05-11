@@ -111,6 +111,7 @@ public class PlayerAnimationController : Singleton<PlayerAnimationController> {
     }
 
     public void AttacheToLadder() {
+        FireKittenModelController.Instance.HideTools();
         if (currentInteraction != null) this.currentInteraction.Drop();
         if (this.IsArmsOverwritte) {
             this.animator.SetBool(AnimationState.ArmsOverwritte, false);

@@ -225,5 +225,6 @@ public class PlayerMovement : Singleton<PlayerMovement> {
         this.controller.transform.position = position;
         this.controller.transform.rotation = rotation;
         this.controller.enabled = true;
+        this.controller.Move(Vector3.zero);
     }
 }
