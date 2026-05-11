@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: interactionType
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1936480511407956248, guid: 67abc4aa467cb85458a8442eb85978db, type: 3}
+      propertyPath: <InteractionType>k__BackingField
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6277691758492544329, guid: 67abc4aa467cb85458a8442eb85978db, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

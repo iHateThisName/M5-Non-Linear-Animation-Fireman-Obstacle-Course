@@ -1,15 +1,19 @@
 using Assets.Scripts.Singleton;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static InteractionController;
 
 public class PlayerMovement : Singleton<PlayerMovement> {
     [SerializeField] private CharacterController controller;
     [SerializeField] private float speed = 7f;
     [SerializeField] private InputActionReference moveAction;
     [SerializeField] private InputActionReference lookAction;
+    [SerializeField] private InputActionReference leftMouseAction;
     private InputAction moveInputAction;
     private InputAction lookInputAction;
+    private InputAction leftMouseInputAction;
     private bool isMoving;
     private Transform mainCameraTransform;
 
@@ -46,6 +50,10 @@ public class PlayerMovement : Singleton<PlayerMovement> {
         this.lookInputAction.Enable();
         this.lookInputAction.performed += OnLook;
 
+        this.leftMouseInputAction = this.leftMouseAction.action;
+        this.leftMouseInputAction.Enable();
+        this.leftMouseInputAction.performed += OnMouseAction;
+
     }
     private void OnDisable() {
         moveInputAction.Disable();
@@ -54,6 +62,9 @@ public class PlayerMovement : Singleton<PlayerMovement> {
 
         this.lookInputAction.Disable();
         this.lookInputAction.performed -= OnLook;
+
+        this.leftMouseInputAction.Disable();
+        this.leftMouseInputAction.performed -= OnMouseAction;
     }
 
 
@@ -93,6 +104,16 @@ public class PlayerMovement : Singleton<PlayerMovement> {
             Vector2 currentAim = PlayerAnimationController.Instance.WaterHoseAim;
             lookInput *= 0.001f;
             PlayerAnimationController.Instance.UpdateWaterHoseAimHorizontal(currentAim.x + lookInput.x, currentAim.y + lookInput.y);
+        }
+    }
+
+
+    private void OnMouseAction(InputAction.CallbackContext context) {
+        if (!context.performed) return;
+        if (PlayerAnimationController.Instance.currentInteraction == null) return;
+
+        if (PlayerAnimationController.Instance.currentInteraction.InteractionType == EnumInteractionType.Axe) {
+            PlayerAnimationController.Instance.TriggerAxeStrike();
         }
     }
 

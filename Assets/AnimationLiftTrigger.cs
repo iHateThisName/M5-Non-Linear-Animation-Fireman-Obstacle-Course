@@ -25,7 +25,7 @@ public class AnimationLiftTrigger : StateMachineBehaviour {
             }
         } else {
             if (isAxe) {
-                // Do nothing.
+                PlayerAnimationController.Instance.OnAxeStrikeFinished();
             }
         }
     }

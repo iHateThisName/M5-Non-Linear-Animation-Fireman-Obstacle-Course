@@ -47,8 +47,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InteractionController
   interactionRefrence: {fileID: 1781555164194001046, guid: 35845fe01580c41289b024647b1d1c53, type: 3}
   model: {fileID: 5473473939154205203}
-  interactionType: 1
+  <InteractionType>k__BackingField: 1
   <IsPlayerInRange>k__BackingField: 0
+  <StartTeleport>k__BackingField: {fileID: 0}
+  <EndTeleport>k__BackingField: {fileID: 0}
+  <LadderEndPoint>k__BackingField: {fileID: 0}
 --- !u!135 &5046993291767824695
 SphereCollider:
   m_ObjectHideFlags: 0

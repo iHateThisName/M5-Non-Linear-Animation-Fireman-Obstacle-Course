@@ -129,6 +129,10 @@ PrefabInstance:
       propertyPath: <LadderEndPoint>k__BackingField
       value: 
       objectReference: {fileID: 2640087685990129068}
+    - target: {fileID: 1936480511407956248, guid: 67abc4aa467cb85458a8442eb85978db, type: 3}
+      propertyPath: <InteractionType>k__BackingField
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6277691758492544329, guid: 67abc4aa467cb85458a8442eb85978db, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

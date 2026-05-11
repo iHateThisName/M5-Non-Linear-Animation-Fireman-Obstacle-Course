@@ -8,7 +8,7 @@ public class InteractionController : MonoBehaviour {
     [SerializeField] private GameObject model;
 
     [Header("Interaction Settings")]
-    [SerializeField] private EnumInteractionType interactionType;
+    [field: SerializeField] public EnumInteractionType InteractionType { get; set; }
 
     private InputAction interactionInputAction;
     private bool isPickedUp = false;
@@ -19,7 +19,7 @@ public class InteractionController : MonoBehaviour {
     [field: SerializeField] public Transform LadderEndPoint { get; private set; }
 
     private void Start() {
-        if (interactionType == EnumInteractionType.None) {
+        if (InteractionType == EnumInteractionType.None) {
             Debug.LogWarning("Interaction type is set to None, this component will not do anything.");
         }
         this.interactionInputAction = this.interactionRefrence.action;
@@ -40,7 +40,7 @@ public class InteractionController : MonoBehaviour {
             this.interactionInputAction.performed -= OnInteraction;
             this.interactionInputAction.Disable();
 
-            if (this.interactionType == EnumInteractionType.Ladder && isPickedUp) {
+            if (this.InteractionType == EnumInteractionType.Ladder && isPickedUp) {
                 PlayerAnimationController.Instance.DetachFromLadder();
                 PlayerMovement.Instance.Teleport(EndTeleport.position, EndTeleport.rotation);
                 isPickedUp = false;
@@ -53,7 +53,7 @@ public class InteractionController : MonoBehaviour {
         if (!context.performed) return;
         if (!this.IsPlayerInRange) return;
 
-        switch (this.interactionType) {
+        switch (this.InteractionType) {
             case EnumInteractionType.Axe:
                 if (!isPickedUp) {
 
@@ -80,7 +80,7 @@ public class InteractionController : MonoBehaviour {
         }
 
         PlayerAnimationController.Instance.currentInteraction = this;
-        if (this.interactionType != EnumInteractionType.Ladder) {
+        if (this.InteractionType != EnumInteractionType.Ladder) {
             this.model.SetActive(false);
         }
 

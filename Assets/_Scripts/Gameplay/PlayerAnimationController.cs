@@ -1,4 +1,5 @@
 using Assets.Scripts.Singleton;
+using System;
 using UnityEngine;
 
 public class PlayerAnimationController : Singleton<PlayerAnimationController> {
@@ -124,9 +125,7 @@ public class PlayerAnimationController : Singleton<PlayerAnimationController> {
         this.animator.SetTrigger(AnimationState.deafultTrigger);
     }
 
-    public void TriggerIdleLadder() {
-        this.animator.SetTrigger(AnimationState.IdleLadderTrigger);
-    }
+    public void TriggerIdleLadder() => this.animator.SetTrigger(AnimationState.IdleLadderTrigger);
 
     public void TriggerLadderClimb(bool isUp) {
         if (isUp) {
@@ -135,6 +134,17 @@ public class PlayerAnimationController : Singleton<PlayerAnimationController> {
             this.animator.SetTrigger(AnimationState.LaderClimbDownTrigger);
         }
     }
+
+    public void TriggerAxeStrike() { 
+        this.animator.SetBool(AnimationState.ArmsOverwritte, false);
+        this.animator.SetTrigger(AnimationState.AxeSwingTrigger); 
+    }
+
+    public void OnAxeStrikeFinished() {
+        this.animator.SetBool(AnimationState.ArmsOverwritte, true);
+        this.animator.SetTrigger(AnimationState.CarryAxeTrigger);
+    }
+    
 
     public class AnimationState {
         // Main States
