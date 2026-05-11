@@ -1388,11 +1388,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &524304810 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 211018710789113539, guid: 48961fb0e8dc575449a1d45bb31305f0, type: 3}
-  m_PrefabInstance: {fileID: 631329065}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &631329065
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2127,10 +2122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 211018710789113539, guid: 48961fb0e8dc575449a1d45bb31305f0, type: 3}
-      insertIndex: 0
-      addedObject: {fileID: 1754682637}
+    m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2641449105063594172, guid: 48961fb0e8dc575449a1d45bb31305f0, type: 3}
       insertIndex: -1
@@ -2153,16 +2145,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b9c94ef2c0cc40449de0273f08febb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationController
-  animator: {fileID: 1261107297}
+  animator: {fileID: 0}
+  animationLiftTrigger: {fileID: 0}
+  currentInteraction: {fileID: 0}
 --- !u!4 &1127880631 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7a5ee102582c10e40afc34120ae37d65, type: 3}
   m_PrefabInstance: {fileID: 6475513571524485626}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1261107297 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 6184867805616980327, guid: 48961fb0e8dc575449a1d45bb31305f0, type: 3}
-  m_PrefabInstance: {fileID: 631329065}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1404858216
 GameObject:
@@ -2495,7 +2484,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 524304810}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1754682638
 MonoBehaviour:
@@ -3861,5 +3850,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 1404858218}
   - {fileID: 3207356049692500253}
+  - {fileID: 1754682637}
   - {fileID: 631329065}
   - {fileID: 143903952}

@@ -1,5 +1,4 @@
 using Assets.Scripts.Singleton;
-using System.Security;
 using UnityEngine;
 
 public class PlayerAnimationController : Singleton<PlayerAnimationController> {
@@ -112,8 +111,12 @@ public class PlayerAnimationController : Singleton<PlayerAnimationController> {
 
     public void AttacheToLadder() {
         if (currentInteraction != null) this.currentInteraction.Drop();
+        if (this.IsArmsOverwritte) {
+            this.animator.SetBool(AnimationState.ArmsOverwritte, false);
+            this.IsArmsOverwritte = false;
+        }
         this.IsClimbingLadder = true;
-        this.animator.SetTrigger(AnimationState.LaderClimbTrigger);
+        this.animator.SetTrigger(AnimationState.IdleLadderTrigger);
     }
 
     public void DetachFromLadder() {
@@ -121,13 +124,27 @@ public class PlayerAnimationController : Singleton<PlayerAnimationController> {
         this.animator.SetTrigger(AnimationState.deafultTrigger);
     }
 
+    public void TriggerIdleLadder() {
+        this.animator.SetTrigger(AnimationState.IdleLadderTrigger);
+    }
+
+    public void TriggerLadderClimb(bool isUp) {
+        if (isUp) {
+            this.animator.SetTrigger(AnimationState.LadderClimbUpTrigger);
+        } else {
+            this.animator.SetTrigger(AnimationState.LaderClimbDownTrigger);
+        }
+    }
+
     public class AnimationState {
         // Main States
         public static readonly int LiftAxeTrigger = Animator.StringToHash("Lift Trigger Axe");
         public static readonly int LiftWaterHoseTrigger = Animator.StringToHash("Lift Trigger Water Hose");
-        public static readonly int LaderClimbTrigger = Animator.StringToHash("Lader Climb Trigger");
         public static readonly int AxeSwingTrigger = Animator.StringToHash("Axe Swing Trigger");
         public static readonly int deafultTrigger = Animator.StringToHash("Default Trigger");
+        public static readonly int LadderClimbUpTrigger = Animator.StringToHash("Ladder Climb Up Trigger");
+        public static readonly int LaderClimbDownTrigger = Animator.StringToHash("Ladder Climb Down Trigger");
+        public static readonly int IdleLadderTrigger = Animator.StringToHash("Ladder Climb Stop Trigger");
 
         // Movement Blend Tree
         public static readonly int MovementVelocity = Animator.StringToHash("Movement Blend"); // 3 running, 1 walking, 0 Idle, -1 Backwards.

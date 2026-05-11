@@ -14,8 +14,9 @@ public class InteractionController : MonoBehaviour {
     private bool isPickedUp = false;
     [field: SerializeField] public bool IsPlayerInRange { get; private set; } = false;
 
-    [SerializeField] private Transform StartTeleport;
-    [SerializeField] private Transform EndTeleport;
+    [field: SerializeField] public Transform StartTeleport { get; private set; }
+    [field: SerializeField] public Transform EndTeleport { get; private set; }
+    [field: SerializeField] public Transform LadderEndPoint { get; private set; }
 
     private void Start() {
         if (interactionType == EnumInteractionType.None) {
@@ -78,9 +79,9 @@ public class InteractionController : MonoBehaviour {
                 break;
         }
 
+        PlayerAnimationController.Instance.currentInteraction = this;
         if (this.interactionType != EnumInteractionType.Ladder) {
             this.model.SetActive(false);
-            PlayerAnimationController.Instance.currentInteraction = this;
         }
 
     }
@@ -89,6 +90,11 @@ public class InteractionController : MonoBehaviour {
         if (!isPickedUp) return;
         this.model.SetActive(true);
         isPickedUp = false;
+    }
+
+    public Vector3 GetLadderClimbDirection() {
+        Vector3 ladderMoveDirection = this.LadderEndPoint.position - this.StartTeleport.position;
+        return ladderMoveDirection.normalized;
     }
 
     public enum EnumInteractionType { None, Axe, WaterHose, Ladder, }

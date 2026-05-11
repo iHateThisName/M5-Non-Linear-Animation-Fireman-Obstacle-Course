@@ -1,5 +1,4 @@
 using Assets.Scripts.Singleton;
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -62,9 +61,9 @@ public class PlayerMovement : Singleton<PlayerMovement> {
         this.mainCameraTransform = Camera.main.transform;
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         if (!this.controller.isGrounded && !PlayerAnimationController.Instance.IsClimbingLadder) {
-            this.controller.Move(Physics.gravity * Time.deltaTime);
+            this.controller.Move(new Vector3(0, -4f, 0) * Time.fixedDeltaTime);
         }
     }
 
@@ -98,29 +97,46 @@ public class PlayerMovement : Singleton<PlayerMovement> {
     }
 
     private IEnumerator PerformeMove() {
-        Vector3 moveDirection = this.mainCameraTransform.right * moveInput.x + this.mainCameraTransform.forward * moveInput.y;
+        //Vector3 moveDirection = this.mainCameraTransform.right * moveInput.x + this.mainCameraTransform.forward * moveInput.y;
+        Vector3 moveDirection = this.transform.right * moveInput.x + this.transform.forward * moveInput.y;
         moveDirection.y = 0; // Keep the movement on the horizontal plane
+
+        if (PlayerAnimationController.Instance.IsClimbingLadder) {
+
+            if (this.moveInput.y > 0) {
+                PlayerAnimationController.Instance.TriggerLadderClimb(true);
+            } else if (this.moveInput.y < 0) {
+                PlayerAnimationController.Instance.TriggerLadderClimb(false);
+            } else {
+                PlayerAnimationController.Instance.TriggerIdleLadder();
+            }
+        }
+
+
         while (this.isMoving) {
             // This will give a multiplier between 1 and 2 for forward movement, and between 0.5 and 1 for backward movement.
             float dynamicSpeedMultiplier = 1f + (Mathf.Abs(this.PlayerVelocityZ / 2f));
             Vector3 motion = (this.speed * dynamicSpeedMultiplier) * Time.deltaTime * moveDirection;
 
             if (PlayerAnimationController.Instance.IsClimbingLadder) {
-                Debug.Log($"Climbing ladder, moving with motion: {motion}");
+                //Vector3 ladderClimbDirection = PlayerAnimationController.Instance.currentInteraction.GetLadderClimbDirection();
+                //this.controller.Move(ladderClimbDirection * Time.deltaTime);
                 this.controller.Move(new Vector3(0, motion.z, 0));
             } else {
-                this.controller.Move(motion);
-            }
 
-            if (moveInput.y > 0) {
-                this.controller.gameObject.transform.rotation = Quaternion.Slerp(this.controller.gameObject.transform.rotation, Quaternion.LookRotation(moveDirection), Time.fixedDeltaTime * 5f);
-            } else if (moveInput.y < 0) {
-                this.controller.gameObject.transform.rotation = Quaternion.Slerp(this.controller.gameObject.transform.rotation, Quaternion.LookRotation(-moveDirection), Time.fixedDeltaTime * 5f);
+                if (!(moveInput.y < 0)) {
+                    this.controller.Move(motion);
+                    this.controller.gameObject.transform.rotation = Quaternion.Slerp(this.controller.gameObject.transform.rotation, Quaternion.LookRotation(moveDirection), Time.fixedDeltaTime * 2f);
+                } else if (moveInput.y < 0) {
+                    this.controller.Move(motion * 0.5f);
+                    this.controller.gameObject.transform.rotation = Quaternion.Slerp(this.controller.gameObject.transform.rotation, Quaternion.LookRotation(-moveDirection), Time.fixedDeltaTime * 2f);
+                }
             }
-
             yield return null;
         }
-
+        if (PlayerAnimationController.Instance.IsClimbingLadder) {
+            PlayerAnimationController.Instance.TriggerIdleLadder();
+        }
         this.moveCoroutine = null;
         yield return null;
     }
